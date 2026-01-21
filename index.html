@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Suma o Multiplicación</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin-top: 40px;
+    }
+    input {
+      font-size: 16px;
+      width: 90px;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Resuelve la operación</h2>
+
+  <p id="ejercicio"></p>
+
+  <input type="number" id="respuesta" placeholder="Respuesta">
+  <p id="mensaje"></p>
+  <p>Puntaje: <span id="puntaje">0</span></p>
+
+  <script>
+    let puntos = 0;
+    let resultadoCorrecto = 0;
+
+    function formatearNumero(n) {
+      return n < 0 ? `(${n})` : n;
+    }
+
+    function nuevoEjercicio() {
+      let a = Math.floor(Math.random() * 11) - 5;
+      let b = Math.floor(Math.random() * 11) - 5;
+
+      let esSuma = Math.random() < 0.5;
+
+      if (esSuma) {
+        document.getElementById("ejercicio").textContent =
+          `${formatearNumero(a)} + ${formatearNumero(b)}`;
+        resultadoCorrecto = a + b;
+      } else {
+        document.getElementById("ejercicio").textContent =
+          `${formatearNumero(a)} × ${formatearNumero(b)}`;
+        resultadoCorrecto = a * b;
+      }
+    }
+
+    function verificar() {
+      let input = document.getElementById("respuesta");
+      let respuestaUsuario = Number(input.value);
+
+      if (respuestaUsuario === resultadoCorrecto) {
+        document.getElementById("mensaje").textContent = "Correcto 👍";
+        puntos++;
+        document.getElementById("puntaje").textContent = puntos;
+      } else {
+        document.getElementById("mensaje").textContent =
+          "Incorrecto 😢 La respuesta era " + resultadoCorrecto;
+      }
+
+      input.value = "";
+      nuevoEjercicio();
+    }
+
+    document.getElementById("respuesta").addEventListener("keydown", function(e) {
+      if (e.key === "Enter") {
+        verificar();
+      }
+    });
+
+    nuevoEjercicio();
+  </script>
+
+</body>
+</html>
+index.ht
